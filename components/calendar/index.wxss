@@ -1,0 +1,89 @@
+.calendar {
+    width: 100%;
+    text-align: center;
+    font-size: 30rpx;
+    box-sizing: border-box;
+}
+
+.calendar_header {
+    line-height: 70rpx;
+    font-size: 30rpx;
+    text-align: left;
+    padding: 0 20rpx;
+    box-sizing: border-box;
+}
+
+.header_left {
+    flex: 1;
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.header_left .header_preMonth,
+.header_nextMonth {
+    min-width: 50rpx;
+    text-align: center;
+}
+
+.header_right {
+    flex: 1;
+    text-align: right;
+    padding: 0 20px;
+    display: inline-block;
+    float: right;
+}
+
+.header_title {
+    min-width: 300rpx;
+    text-align: center;
+}
+
+.calendar_weeks {
+    display: flex;
+    text-align: center;
+    padding: 20rpx 10rpx;
+    box-sizing: border-box;
+    border-top: 1rpx solid #e0e0e0;
+    border-bottom: 1rpx solid #e0e0e0;
+    background: #f5f5f5;
+}
+
+.weeks_item {
+    flex: 1;
+}
+
+.calendar_days {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20rpx 10rpx;
+    box-sizing: border-box;
+}
+
+.days_grid {
+    display: inline-block;
+    width: 14.28571428571429%;
+    line-height: 70rpx;
+    position: relative;
+    z-index: 1;
+}
+
+.days_grid .pre,
+.next {
+    color: #ccc;
+}
+
+.thisDayIsSelect {
+    background: rgb(49, 120, 228);
+    border-radius: 50%;
+    color: #fff;
+    width: 72%;
+    margin: 0 auto;
+}
+
+.thisDayNoSelect {
+    background: rgb(239, 241, 245);
+    border-radius: 50%;
+    width: 72%;
+    margin: 0 auto;
+}

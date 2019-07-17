@@ -1,0 +1,27 @@
+<view class="calendar">
+  <!-- 引入.wxs文件 src为相对路径，module指定当前模块的名称 -->
+  <view class="calendar_header">
+    <view class="header_left">
+      <view class="header_preMonth" bindtap="getLastYearDays">{{'<<'}}</view>
+      <view class="header_preMonth" bindtap="getLastMonthDays">{{'<'}}</view>
+      <view class="header_title">{{currentDate}}</view>
+      <view class="header_nextMonth" bindtap="getNextMonthDays">{{'>'}}</view>
+      <view class="header_preMonth" bindtap="getNextYearDays">{{'>>'}}</view>
+    </view>
+    <view class="header_right">
+      <view bindtap="jumpToToady">{{'今天'}}</view>
+    </view>
+  </view>
+  <view class="calendar_weeks">
+    <block wx:for="{{weeks}}" wx:key="index">
+      <view class="weeks_item">{{item}}</view>
+    </block>
+  </view>
+  <view class="calendar_days">
+    <view class="days_grid " wx:for="{{days}}" wx:for-item="day" wx:key="index">
+      <view class="days_item {{day.class}} {{day.type}}" data-date="{{day}}" bindtap="selectDay">
+        {{day.day}}
+      </view>
+    </view>
+  </view>
+</view>
