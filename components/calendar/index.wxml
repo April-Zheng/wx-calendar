@@ -30,4 +30,15 @@
       </block>
     </view>
   </view>
+  <view class="calendar_timer" wx:if="{{timer}}">
+    <picker mode="time" value="{{time}}" bindchange="bindTimeChange" class="timer_picker">
+      <view class="timer_picker__view">
+        <text>时间:</text>
+        <input value="{{time}}" disabled />
+      </view>
+    </picker>
+    <view class="timer_now" wx:if="{{now}}">
+      <view bindtap="jumpToNowTime">{{'此刻'}}</view>
+    </view>
+  </view>
 </view>

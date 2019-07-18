@@ -17,7 +17,16 @@ Page({
     },
 
     select(e) {
-        console.log(e)
+        console.log("select", e)
+    },
+    jumpToToday(e) {
+        console.log("today", e)
+    },
+    jumpToNow(e) {
+        console.log("now", e)
+    },
+    selectTime(e) {
+        console.log("selectTime", e)
     },
     onLoad: function() {
         if (app.globalData.userInfo) {

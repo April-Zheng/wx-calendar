@@ -77,24 +77,41 @@ Component({
             value: false,
         },
         /**
-         * 是否显示前后月份残余数据
+         * 日期连接符
          */
         formatType: {
             type: String,
             value: '-',
         },
+        /**
+         * 是否显示时间选择器
+         */
+        timer: {
+            type: Boolean,
+            value: false
+        },
+        /**
+         * 是否显示此刻按钮
+         */
+        now: {
+            type: Boolean,
+            value: false
+        },
+
     },
 
     // 组件的初始数据
     data: {
         weekTitle: ['日', '一', '二', '三', '四', '五', '六'],
         days: [],
+        time: ''
     },
     ready: function() {
         this.init()
     },
 
     methods: {
+
         /**
          * 周标题类型
          */
@@ -129,6 +146,7 @@ Component({
 
         init() {
             this.jumpToToady()
+            this.jumpToNowTime()
         },
 
         // 获取某年某月总共多少天
@@ -274,8 +292,12 @@ Component({
             this.selectedMonth = currentDate.getMonth() + 1
             this.selectedDay = currentDate.getDate()
             this.getAllDays(this.currentYear, this.currentMonth)
-            this.setCurrentDate(this.currentYear, this.currentMonth, this.currentDay)
+            let date = this.setCurrentDate(this.currentYear, this.currentMonth, this.currentDay)
             this.setSelectedDayClass(this.selectedYear, this.selectedMonth, this.selectedDay)
+            let detail = {
+                value: date
+            }
+            this.triggerEvent('today', detail);
         },
 
         setCurrentDate(year, month, day) {
@@ -283,7 +305,7 @@ Component({
             this.setData({
                 currentDate: date
             })
-
+            return date
         },
 
         //设置选中日期的样式 默认选中当前日期
@@ -320,6 +342,33 @@ Component({
                 }
                 //将选中的日期传给自定义事件
             this.triggerEvent('select', detail);
+        },
+
+        //选择时间
+        bindTimeChange(e) {
+            this.setData({
+                time: e.detail.value
+            })
+            let detail = {
+                value: e.detail.value
+            }
+            this.triggerEvent('selectTime', detail);
+        },
+        //此刻
+        jumpToNowTime() {
+            let detail = {
+                value: this.formatTime(new Date())
+            }
+            this.setData({
+                time: detail.value
+            })
+            this.triggerEvent('now', detail);
+        },
+        //时间格式化
+        formatTime(time) {
+            const hour = time.getHours()
+            const minute = time.getMinutes()
+            return [hour, minute].map(this.formatNumber).join(':')
         },
 
         //日期格式化

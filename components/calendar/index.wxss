@@ -87,3 +87,37 @@
     width: 72%;
     margin: 0 auto;
 }
+
+.calendar_timer {
+    border-top: 1rpx solid #e0e0e0;
+    border-bottom: 1rpx solid #e0e0e0;
+    display: flex;
+    align-items: center;
+}
+
+.timer_picker {
+    flex: 1
+}
+
+.timer_picker__view {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1;
+}
+
+.timer_picker__view text {
+    padding: 10px;
+    flex: 0.2;
+}
+
+.timer_picker__view input {
+    padding: 10px;
+    flex: 0.8;
+    text-align: left;
+}
+
+.timer_now {
+    padding: 10px;
+    flex: 0.3;
+}

@@ -1,5 +1,5 @@
 <!-- index.wxml -->
-<calendar today="{{true}}" bind:select="select"></calendar>
+<calendar today="{{true}}" timer="{{true}}" now="{{true}}" bind:select="select" bind:selectTime="selectTime" bind:today="jumpTotoday" bind:now='jumpToNow'></calendar>
 <!-- <view class="container">
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
