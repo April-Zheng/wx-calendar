@@ -327,6 +327,13 @@ Component({
             return [year, month, day].map(this.formatNumber).join(this.data.formatType)
         },
 
+
+        //补零
+        formatNumber(n) {
+            n = n.toString()
+            return n[1] ? n : '0' + n
+        },
+
         //星期格式化
         formatWeek(day, week) {
             let result = week - (day % 7 - 1);
