@@ -10,25 +10,119 @@ let selectedMonth = null
 let selectedDay = null
 Component({
     //初始默认为当前日期
-    properties: {},
+    properties: {
+        /**
+         * 是否显示头部操作栏
+         */
+        header: {
+            type: Boolean,
+            value: true
+        },
+        /**
+         * 是否上个月按钮
+         */
+        preMonth: {
+            type: Boolean,
+            value: true
+        },
+        /**
+         * 是否下个月按钮
+         */
+        nextMonth: {
+            type: Boolean,
+            value: true
+        },
+        /**
+         * 是否上一年按钮
+         */
+        preYear: {
+            type: Boolean,
+            value: false
+        },
+        /**
+         * 是否下一年按钮
+         */
+        nextYear: {
+            type: Boolean,
+            value: false
+        },
+        /**
+         * 是否显示今天按钮
+         */
+        today: {
+            type: Boolean,
+            value: false,
+        },
+        /**
+         * 是否显示周标题
+         */
+        weeks: {
+            type: Boolean,
+            value: true,
+        },
+
+        /**
+         * 周标题类型
+         */
+        weeksType: {
+            type: String,
+            value: 'cn',
+            observer: 'weeksTypeChange'
+        },
+        /**
+         * 是否显示前后月份残余数据
+         */
+        showMoreDays: {
+            type: Boolean,
+            value: false,
+        },
+    },
 
     // 组件的初始数据
     data: {
-        weeks: ['日', '一', '二', '三', '四', '五', '六'],
+        weekTitle: ['日', '一', '二', '三', '四', '五', '六'],
         days: [],
-        currentDate: new Date(),
-        today: new Date()
+        currentDattodaye: new Date(),
     },
     ready: function() {
         this.init()
     },
 
     methods: {
+        /**
+         * 周标题类型
+         */
+        weeksTypeChange: function(newVal, oldVal) {
+            switch (newVal) {
+                case 'en':
+                    this.setData({
+                        weeksType: 'en',
+                        weekTitle: ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+                    });
+                    break;
+                case 'cn':
+                    this.setData({
+                        weeksType: 'cn',
+                        weekTitle: ['日', '一', '二', '三', '四', '五', '六']
+                    });
+                    break;
+                case 'full-en':
+                    this.setData({
+                        weeksType: 'full-en',
+                        weekTitle: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+                    });
+                    break;
+                default:
+                    this.setData({
+                        weeksType: 'en',
+                        weekTitle: ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+                    });
+                    break;
+            }
+        },
+
         init() {
             this.jumpToToady()
-            this.setData({
-                today: this.formatDate(new Date())
-            })
         },
 
         // 获取某年某月总共多少天
@@ -65,14 +159,26 @@ Component({
                 this.getDays(year, preMonth);
             let preMonthDays = []
             for (let i = 1; i <= this.emptyDaysLen; i++) {
-                preMonthDays.unshift({
-                    type: 'pre',
-                    year,
-                    preMonth,
-                    day: this.preDaysLen,
-                    class: ''
-                })
-                this.preDaysLen--
+                //是否显示上月残余天数
+                if (this.data.showMoreDays) {
+                    preMonthDays.unshift({
+                        type: 'pre',
+                        year,
+                        preMonth,
+                        day: this.preDaysLen,
+                        class: ''
+                    })
+                    this.preDaysLen--
+                } else {
+                    preMonthDays.unshift({
+                        type: 'pre',
+                        year,
+                        preMonth,
+                        day: -1,
+                        class: ''
+                    })
+                }
+
             }
             return preMonthDays
         },
@@ -85,13 +191,23 @@ Component({
             let nextMonthDays = []
             if (nextMonthDaysLen > 0) {
                 for (let i = 1; i <= nextMonthDaysLen; i++) {
-                    nextMonthDays.push({
-                        type: 'next',
-                        year,
-                        nextMonth,
-                        day: i,
-                        class: ''
-                    })
+                    if (this.data.showMoreDays) {
+                        nextMonthDays.push({
+                            type: 'next',
+                            year,
+                            nextMonth,
+                            day: i,
+                            class: ''
+                        })
+                    } else {
+                        nextMonthDays.push({
+                            type: 'next',
+                            year,
+                            nextMonth,
+                            day: -2,
+                            class: ''
+                        })
+                    }
                 }
             }
             return nextMonthDays
