@@ -76,6 +76,13 @@ Component({
             type: Boolean,
             value: false,
         },
+        /**
+         * 是否显示前后月份残余数据
+         */
+        formatType: {
+            type: String,
+            value: '-',
+        },
     },
 
     // 组件的初始数据
@@ -272,10 +279,9 @@ Component({
         },
 
         setCurrentDate(year, month, day) {
-            //因为formatDate已经+1
-            let date = new Date(year, month - 1, day)
+            let date = this.formateDateJoinStr(year, month, day, )
             this.setData({
-                currentDate: this.formatDate(date)
+                currentDate: date
             })
 
         },
@@ -310,23 +316,15 @@ Component({
             this.setCurrentDate(day.year, day.month, day.day)
             this.setSelectedDayClass(day.year, day.month, day.day)
             let detail = {
-                value: this.formatDate(new Date(day.year, day.month, day.day))
-            }
+                    value: this.formateDateJoinStr(day.year, day.month, day.day)
+                }
+                //将选中的日期传给自定义事件
             this.triggerEvent('select', detail);
         },
 
         //日期格式化
-        formatDate(date) {
-            const year = date.getFullYear()
-            const month = date.getMonth() + 1
-            const day = date.getDate()
-
-            return [year, month, day].map(this.formatNumber).join('-')
-        },
-        //补零
-        formatNumber(n) {
-            n = n.toString()
-            return n[1] ? n : '0' + n
+        formateDateJoinStr(year, month, day) {
+            return [year, month, day].map(this.formatNumber).join(this.data.formatType)
         },
 
         //星期格式化
