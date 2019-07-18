@@ -7,7 +7,8 @@ Page({
         motto: 'Hello World',
         userInfo: {},
         hasUserInfo: false,
-        canIUse: wx.canIUse('button.open-type.getUserInfo')
+        canIUse: wx.canIUse('button.open-type.getUserInfo'),
+        time: ''
     },
     //事件处理函数
     bindViewTap: function() {
@@ -27,6 +28,12 @@ Page({
     },
     selectTime(e) {
         console.log("selectTime", e)
+    },
+    onPickerChange(e) {
+        this.setData({
+            time: e.detail.value
+        })
+        console.log("onPickerChange", e)
     },
     onLoad: function() {
         if (app.globalData.userInfo) {

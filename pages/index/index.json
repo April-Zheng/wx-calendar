@@ -1,5 +1,6 @@
 {
     "usingComponents": {
-        "calendar": "../../../components/calendar/index"
+        "calendar": "../../../components/calendar/index",
+        "time-picker": "../../../components/timePicker/index"
     }
 }

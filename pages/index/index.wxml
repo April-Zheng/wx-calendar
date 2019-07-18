@@ -1,5 +1,8 @@
 <!-- index.wxml -->
+<view class="title">日历</view>
 <calendar today="{{true}}" timer="{{true}}" now="{{true}}" bind:select="select" bind:selectTime="selectTime" bind:today="jumpTotoday" bind:now='jumpToNow'></calendar>
+<view class="title">时间选择</view>
+<time-picker class="picker" inputHolder="请选择开始时间" bind:onPickerChange="onPickerChange"></time-picker>
 <!-- <view class="container">
   <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
