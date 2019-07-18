@@ -82,7 +82,6 @@ Component({
     data: {
         weekTitle: ['日', '一', '二', '三', '四', '五', '六'],
         days: [],
-        currentDattodaye: new Date(),
     },
     ready: function() {
         this.init()
